@@ -1,0 +1,25 @@
+{
+  "name": "herbalsphere",
+  "version": "1.0.0",
+  "description": "Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "npm run codecheck",
+    "codecheck": "npm run prettify-check  && npm run lint",
+    "dev": "nodemon src/server.js",
+    "prettify": "prettier --write .",
+    "prettify-check": "prettier --list-different . || exit 1",
+    "lint": "eslint src --ext .js,.jsx"
+
+  },
+  "keywords": [
+    "HerbalSphere"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^9.10.0",
+    "express": "^4.21.0",
+    "prettier": "^3.3.3"
+  }
+}
