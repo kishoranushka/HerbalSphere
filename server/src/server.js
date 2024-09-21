@@ -2,18 +2,20 @@ import express from 'express';
 import { config } from './config/config.js';
 import connectDB from './config/db.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js';
-import createHttpError from 'http-errors';
+import userRouter from './user/userRouter.js';
 
 const app = express();
 
 // connect to database
 connectDB();
 
-app.get('/', () => {
-	const error = createHttpError(400, 'Something went wrong');
-	throw error;
-	console.log('Running home');
+app.use(express.json());
+
+app.get('/', (req, res) => {
+	res.json({ message: 'Welcome to Home page' });
 });
+
+app.use('/api/users', userRouter);
 
 // Global error handler
 app.use(globalErrorHandler);
