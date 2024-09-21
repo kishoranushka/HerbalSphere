@@ -1,9 +1,12 @@
+import { config } from '../config/config.js';
 import createHttpError from 'http-errors';
+import userModel from './userModel.js';
+import bcrypt from 'bcrypt';
+import pkg from 'jsonwebtoken';
+const { sign } = pkg;
 
 const createUser = async (req, res, next) => {
 	const { name, email, password } = req.body;
-
-	console.log(name + ' ' + email + ' ' + password);
 
 	if (!name || !email || !password) {
 		const error = createHttpError(400, 'All fields are required');
@@ -20,7 +23,7 @@ const createUser = async (req, res, next) => {
 			);
 			return next(error);
 		}
-	} catch (error) {
+	} catch {
 		return next(createHttpError(500, 'Error while getting user'));
 	}
 
@@ -33,13 +36,22 @@ const createUser = async (req, res, next) => {
 			email,
 			password: hashedPassword,
 		});
-	} catch (error) {
+	} catch {
 		return next(createHttpError(500, 'Error while creating user'));
 	}
 
-	res.json({
-		id: newUser._id,
-	});
+	try {
+		// Token generation --> JWT
+		const token = sign({ sub: newUser._id }, config.jwtSecret, {
+			expiresIn: '7d',
+			algorithm: 'HS256', // by default
+		});
+
+		// Response
+		res.status(201).json({ accessToken: token });
+	} catch {
+		return next(createHttpError(500, 'Error while signing user'));
+	}
 };
 
 export { createUser };
