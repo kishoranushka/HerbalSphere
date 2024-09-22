@@ -3,7 +3,7 @@ import { config } from './config/config.js';
 import connectDB from './config/db.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js';
 import userRouter from './user/userRouter.js';
-
+import plantRouter from './plant/plantRouter.js';
 const app = express();
 
 // connect to database
@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', userRouter);
+app.use('/api/plants', plantRouter);
 
 // Global error handler
 app.use(globalErrorHandler);
