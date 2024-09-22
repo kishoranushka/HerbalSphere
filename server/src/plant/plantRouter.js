@@ -18,13 +18,6 @@ const upload = multer({
 });
 
 // Routes
-plantRouter.post(
-	'/create',
-	upload.fields([
-		{ name: 'coverImage', maxCount: 1 },
-		{ name: 'file', maxCount: 1 },
-	]),
-	createPlant,
-);
+plantRouter.post('/create', upload.single('coverImage'), createPlant);
 
 export default plantRouter;

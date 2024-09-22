@@ -6,7 +6,7 @@ const plantSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		scientific_name: {
+		scientificName: {
 			type: String,
 			required: true,
 		},
@@ -14,31 +14,27 @@ const plantSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		medical_benefits: {
+		medicalBenefits: {
 			type: String,
 			required: true,
 		},
-		best_time_for_plantation: {
+		bestTimeForPlantation: {
 			type: String,
 			required: true,
 		},
-		nearest_nursery: {
+		nearestNursery: {
 			type: String,
 			required: true,
 		},
-		curable_diseases: {
+		curableDiseases: {
 			type: String,
 			required: true,
 		},
-		auther: {
+		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			required: true,
 		},
 		coverImage: {
-			type: String,
-			required: true,
-		},
-		file: {
 			type: String,
 			required: true,
 		},
