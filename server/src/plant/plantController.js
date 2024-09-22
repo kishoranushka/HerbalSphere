@@ -2,6 +2,8 @@ import cloudinary from '../config/cloudinary.js';
 import path from 'path';
 import { fileURLToPath } from 'url'; // Import for converting module URL to path
 import plantModel from './plantModel.js';
+import createHttpError from 'http-errors';
+import fs from 'node:fs';
 
 // Define __dirname manually
 const __filename = fileURLToPath(import.meta.url);
@@ -49,11 +51,40 @@ const createPlant = async (req, res, next) => {
 		}
 
 		console.log('UploadResult ', uploadResult);
+
+		// Create a new plant record in the database
+		let newPlant;
+		try {
+			console.log('userId ', req.userId);
+			newPlant = await plantModel.create({
+				title,
+				scientificName,
+				features,
+				medicalBenefits,
+				bestTimeForPlantation,
+				nearestNursery,
+				curableDiseases,
+				author: req.userId,
+				coverImage: uploadResult.secure_url,
+			});
+		} catch {
+			throw createHttpError(
+				500,
+				'Error while creating plant record in database',
+			);
+		}
+
+		// Delete temporary files
+		try {
+			await fs.promises.unlink(filePath);
+		} catch (error) {
+			throw createHttpError(500, 'Error deleting temporary files: ');
+		}
+
+		res.status(201).json({ id: newPlant._id });
 	} catch (error) {
 		return next(error); // Passes any caught error to the error handler middleware
 	}
-
-	res.json({});
 };
 
 export { createPlant };

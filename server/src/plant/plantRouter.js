@@ -4,6 +4,7 @@ import path from 'path';
 import multer from 'multer';
 
 import { fileURLToPath } from 'url';
+import authenticate from '../middleware/authenticate.js';
 
 // Define __dirname manually in ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -18,6 +19,11 @@ const upload = multer({
 });
 
 // Routes
-plantRouter.post('/create', upload.single('coverImage'), createPlant);
+plantRouter.post(
+	'/create',
+	authenticate,
+	upload.single('coverImage'),
+	createPlant,
+);
 
 export default plantRouter;
