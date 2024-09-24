@@ -1,9 +1,8 @@
 import { config } from '../config/config.js';
 import createHttpError from 'http-errors';
-import userModel from './userModel.js';
+import userModel from '../models/users.model.js';
 import bcrypt from 'bcrypt';
 import pkg from 'jsonwebtoken';
-import { model } from 'mongoose';
 const { sign } = pkg;
 
 const createUser = async (req, res, next) => {

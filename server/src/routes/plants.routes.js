@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPlant } from './plantController.js';
+import { createPlant } from '../controller/plants.controller.js';
 import path from 'path';
 import multer from 'multer';
 
