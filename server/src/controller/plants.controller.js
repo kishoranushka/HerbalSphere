@@ -1,7 +1,7 @@
 import cloudinary from '../config/cloudinary.js';
 import path from 'path';
 import { fileURLToPath } from 'url'; // Import for converting module URL to path
-import plantModel from './plantModel.js';
+import plantModel from '../models/plants.model.js';
 import createHttpError from 'http-errors';
 import fs from 'node:fs';
 
@@ -50,7 +50,7 @@ const createPlant = async (req, res, next) => {
 			throw createHttpError(500, 'Error uploading image to Cloudinary');
 		}
 
-		console.log('UploadResult ', uploadResult);
+		// console.log('UploadResult ', uploadResult);
 
 		// Create a new plant record in the database
 		let newPlant;
