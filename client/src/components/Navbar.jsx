@@ -9,7 +9,7 @@ const Navbar = () => {
 	};
 
 	return (
-		<nav className="bg-[#004d00] text-[#a8d5ba] p-4">
+		<nav className="bg-[#004d00] text-[#a8d5ba] px-16 py-6">
 			<div className="container mx-auto flex flex-wrap items-center justify-between">
 				<Link to="/" className="text-2xl font-bold">
 					HerbalSphere
@@ -33,19 +33,19 @@ const Navbar = () => {
 				</button>
 				<div
 					className={`lg:flex lg:items-center lg:space-x-6 ${isOpen ? 'block' : 'hidden'}`}>
-					<ul className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-6">
+					<ul className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8">
 						<li>
-							<Link to="/" className="hover:text-[#eaf0e4]">
+							<Link to="/" className="relative text-gray-300 hover:text-white px-4 py-2 transition duration-300 ease-in-out hover:bg-gray-500 rounded-md">
 								Home
 							</Link>
 						</li>
 						<li>
-							<Link to="/about" className="hover:text-[#eaf0e4]">
+							<Link to="/about" className="relative text-gray-300 hover:text-white px-4 py-2 transition duration-300 ease-in-out hover:bg-gray-500 rounded-md">
 								About
 							</Link>
 						</li>
 						<li>
-							<Link to="/herbalplant" className="hover:text-[#eaf0e4]">
+							<Link to="/herbalplant" className="relative text-gray-300 hover:text-white px-4 py-2 transition duration-300 ease-in-out hover:bg-gray-500 rounded-md">
 								Herbal Plants
 							</Link>
 						</li>
