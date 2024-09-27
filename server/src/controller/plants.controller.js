@@ -96,4 +96,22 @@ const getPlantList = async (req, res, next) => {
 	}
 };
 
-export { createPlant, getPlantList };
+const getSinglePlant = async (req, res, next) => {
+	try {
+		const plantId = req.params.plantId;
+		const plant = await plantModel.findOne({ _id: plantId });
+		console.log('plant ', plant);
+
+		if (!plant) {
+			return next(createHttpError(404, 'Plant not found. '));
+		}
+
+		res.json(plant);
+	} catch {
+		return next(
+			createHttpError(500, 'Error while getting a single plant details'),
+		);
+	}
+};
+
+export { createPlant, getPlantList, getSinglePlant };

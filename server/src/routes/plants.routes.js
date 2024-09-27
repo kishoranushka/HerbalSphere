@@ -1,5 +1,9 @@
 import express from 'express';
-import { createPlant, getPlantList } from '../controller/plants.controller.js';
+import {
+	createPlant,
+	getPlantList,
+	getSinglePlant,
+} from '../controller/plants.controller.js';
 import path from 'path';
 import multer from 'multer';
 
@@ -27,5 +31,6 @@ plantRouter.post(
 );
 
 plantRouter.get('/plantList', getPlantList);
+plantRouter.get('/singlePlant/:plantId', getSinglePlant);
 
 export default plantRouter;
