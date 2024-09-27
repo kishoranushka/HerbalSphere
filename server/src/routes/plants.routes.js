@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPlant } from '../controller/plants.controller.js';
+import { createPlant, getPlantList } from '../controller/plants.controller.js';
 import path from 'path';
 import multer from 'multer';
 
@@ -25,5 +25,7 @@ plantRouter.post(
 	upload.single('coverImage'),
 	createPlant,
 );
+
+plantRouter.get('/plantList', getPlantList);
 
 export default plantRouter;

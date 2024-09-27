@@ -87,4 +87,13 @@ const createPlant = async (req, res, next) => {
 	}
 };
 
-export { createPlant };
+const getPlantList = async (req, res, next) => {
+	try {
+		const plants = await plantModel.find();
+		res.json(plants);
+	} catch {
+		return next(createHttpError(500, 'Error while getting a plant details'));
+	}
+};
+
+export { createPlant, getPlantList };
