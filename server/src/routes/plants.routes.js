@@ -3,6 +3,7 @@ import {
 	createPlant,
 	getPlantList,
 	getSinglePlant,
+	updatePlant,
 } from '../controller/plants.controller.js';
 import path from 'path';
 import multer from 'multer';
@@ -29,6 +30,8 @@ plantRouter.post(
 	upload.single('coverImage'),
 	createPlant,
 );
+
+plantRouter.patch('/updatePlant/:plantId', authenticate, updatePlant);
 
 plantRouter.get('/plantList', getPlantList);
 plantRouter.get('/singlePlant/:plantId', getSinglePlant);
