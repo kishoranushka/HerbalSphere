@@ -11,6 +11,7 @@ import multer from 'multer';
 
 import { fileURLToPath } from 'url';
 import authenticate from '../middleware/auth.middleware.js';
+import adminMiddleware from '../middleware/admin.middleware.js';
 
 // Define __dirname manually in ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +29,7 @@ const upload = multer({
 plantRouter.post(
 	'/create',
 	authenticate,
+	adminMiddleware,
 	upload.single('coverImage'),
 	createPlant,
 );
@@ -35,11 +37,17 @@ plantRouter.post(
 plantRouter.patch(
 	'/updatePlant/:plantId',
 	authenticate,
+	adminMiddleware,
 	upload.single('coverImage'),
 	updatePlant,
 );
 
-plantRouter.delete('/deletePlant/:plantId', authenticate, deletePlant);
+plantRouter.delete(
+	'/deletePlant/:plantId',
+	authenticate,
+	adminMiddleware,
+	deletePlant,
+);
 
 plantRouter.get('/plantList', getPlantList);
 plantRouter.get('/singlePlant/:plantId', getSinglePlant);
