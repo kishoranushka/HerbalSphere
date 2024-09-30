@@ -10,7 +10,7 @@ import path from 'path';
 import multer from 'multer';
 
 import { fileURLToPath } from 'url';
-import authenticate from '../middleware/authenticate.js';
+import authenticate from '../middleware/auth.middleware.js';
 
 // Define __dirname manually in ES module
 const __filename = fileURLToPath(import.meta.url);
