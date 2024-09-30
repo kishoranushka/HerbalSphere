@@ -222,4 +222,35 @@ const updatePlant = async (req, res, next) => {
 	}
 };
 
-export { createPlant, getPlantList, getSinglePlant, updatePlant };
+const deletePlant = async (req, res, next) => {
+	try {
+		const plantId = req.params.plantId;
+		const plant = await plantModel.findOne({ _id: plantId });
+
+		if (!plant) {
+			return next(createHttpError(404, 'Plant not found'));
+		}
+
+		const user = await usersModel.findOne({ _id: req.userId });
+		// // Check access
+		if (
+			plant.author.toString() !== req.userId &&
+			user.isAdmin.toString() == 'false'
+		) {
+			return next(createHttpError(403, 'You can not delete the plant '));
+		}
+
+		try {
+			await plantModel.deleteOne({ _id: plantId });
+		} catch {
+			return next(createHttpError(500, 'Failed to delete book from database.'));
+		}
+		return res.sendStatus(204);
+	} catch {
+		return next(
+			createHttpError(500, 'An unexpected error occurred during delete'),
+		);
+	}
+};
+
+export { createPlant, getPlantList, getSinglePlant, updatePlant, deletePlant };

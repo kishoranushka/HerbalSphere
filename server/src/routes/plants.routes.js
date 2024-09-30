@@ -1,6 +1,7 @@
 import express from 'express';
 import {
 	createPlant,
+	deletePlant,
 	getPlantList,
 	getSinglePlant,
 	updatePlant,
@@ -37,6 +38,8 @@ plantRouter.patch(
 	upload.single('coverImage'),
 	updatePlant,
 );
+
+plantRouter.delete('/deletePlant/:plantId', authenticate, deletePlant);
 
 plantRouter.get('/plantList', getPlantList);
 plantRouter.get('/singlePlant/:plantId', getSinglePlant);
