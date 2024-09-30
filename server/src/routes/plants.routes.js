@@ -31,7 +31,12 @@ plantRouter.post(
 	createPlant,
 );
 
-plantRouter.patch('/updatePlant/:plantId', authenticate, updatePlant);
+plantRouter.patch(
+	'/updatePlant/:plantId',
+	authenticate,
+	upload.single('coverImage'),
+	updatePlant,
+);
 
 plantRouter.get('/plantList', getPlantList);
 plantRouter.get('/singlePlant/:plantId', getSinglePlant);

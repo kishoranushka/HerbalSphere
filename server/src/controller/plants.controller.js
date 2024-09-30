@@ -126,23 +126,6 @@ const updatePlant = async (req, res, next) => {
 		curableDiseases,
 	} = req.body;
 
-	console.log(
-		req.body +
-			' ' +
-			title +
-			' ' +
-			scientificName +
-			' ' +
-			features +
-			' ' +
-			medicalBenefits +
-			' ' +
-			bestTimeForPlantation +
-			' ' +
-			nearestNursery +
-			' ' +
-			curableDiseases,
-	);
 	const plantId = req.params.plantId;
 
 	try {
@@ -162,7 +145,6 @@ const updatePlant = async (req, res, next) => {
 		}
 
 		// if image is uploaded
-		// const file = req.file;
 		const file = '';
 		let plantImage = '';
 		try {
@@ -190,7 +172,6 @@ const updatePlant = async (req, res, next) => {
 				} catch {
 					throw createHttpError(500, 'Error uploading image to Cloudinary');
 				}
-				// console.log('UploadResult ', uploadResult);
 
 				// Delete temporary files
 				try {
@@ -236,7 +217,6 @@ const updatePlant = async (req, res, next) => {
 			return next(createHttpError(500, 'Error updating plant details.'));
 		}
 		res.json(updatedPlant);
-		// res.json({ message: 'Update successful' });
 	} catch {
 		return next(createHttpError(500, 'Error while processing the update.'));
 	}
