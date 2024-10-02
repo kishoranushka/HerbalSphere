@@ -2,7 +2,7 @@ import express from 'express';
 import { config } from './config/config.js';
 import connectDB from './config/db.js';
 import globalErrorHandler from './middleware/globalErrorHandler.js';
-import userRouter from './routes/users.routes.js';
+import userRouter from './routes/auth.routes.js';
 import plantRouter from './routes/plants.routes.js';
 const app = express();
 
@@ -10,6 +10,7 @@ const app = express();
 connectDB();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Welcome to Home page' });

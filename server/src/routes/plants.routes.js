@@ -1,10 +1,17 @@
 import express from 'express';
-import { createPlant } from '../controller/plants.controller.js';
+import {
+	createPlant,
+	deletePlant,
+	getPlantList,
+	getSinglePlant,
+	updatePlant,
+} from '../controller/plants.controller.js';
 import path from 'path';
 import multer from 'multer';
 
 import { fileURLToPath } from 'url';
-import authenticate from '../middleware/authenticate.js';
+import authenticate from '../middleware/auth.middleware.js';
+import adminMiddleware from '../middleware/admin.middleware.js';
 
 // Define __dirname manually in ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -22,8 +29,27 @@ const upload = multer({
 plantRouter.post(
 	'/create',
 	authenticate,
+	adminMiddleware,
 	upload.single('coverImage'),
 	createPlant,
 );
+
+plantRouter.patch(
+	'/updatePlant/:plantId',
+	authenticate,
+	adminMiddleware,
+	upload.single('coverImage'),
+	updatePlant,
+);
+
+plantRouter.delete(
+	'/deletePlant/:plantId',
+	authenticate,
+	adminMiddleware,
+	deletePlant,
+);
+
+plantRouter.get('/plantList', getPlantList);
+plantRouter.get('/singlePlant/:plantId', getSinglePlant);
 
 export default plantRouter;
