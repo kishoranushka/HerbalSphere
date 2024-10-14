@@ -9,6 +9,21 @@ import aloe from '../assets/AloeVera.jpeg';
 
 import { Link } from 'react-router-dom';
 
+import { Canvas } from '@react-three/fiber';
+
+import {
+	Stage,
+	PresentationControls,
+	useGLTF,
+	OrbitControls,
+} from '@react-three/drei';
+
+function Model(props) {
+	const { scene } = useGLTF('/src/assets/3dModels/MoneyPlant/scene.gltf');
+	// eslint-disable-next-line react/no-unknown-property
+	return <primitive object={scene} scale={0.01} {...props} />;
+}
+
 const Home = () => {
 	return (
 		<div>
@@ -94,11 +109,33 @@ const Home = () => {
 
 				{/* Container for 3D Model with Hover Effect and Border Color Change */}
 				<div className="relative w-full h-96 transition-transform duration-300 transform hover:scale-105 border-2 border-transparent hover:border-[#5b9b695e] rounded-lg">
-					<canvas
+				<Canvas
 						id="plantModel"
 						className="w-full h-full rounded-lg shadow-lg"
-						style={{ backgroundColor: '#51a573b3' }} // Dark green
-					></canvas>
+						// style={{ backgroundColor: '#51a573b3' }}
+						dpr={[1, 2]}
+						shadows
+						camera={{ fov: 45 }}
+						style={{ backgroundColor: '#51a573b3', position: 'absolute' }}>
+						<color />
+
+						<OrbitControls
+							enableZoom={true} // Enables zoom functionality
+							zoomSpeed={0.4} // Controls the speed of zooming
+						// 	maxDistance={5} // Maximum zoom-out distance
+						// 	minDistance={1} // Minimum zoom-in distance
+						/>
+
+						<PresentationControls
+							speed={0.5}
+							global
+							zoom={0.9}
+							polar={[-1, Math.PI / 4]}>
+							<Stage environment={null} intensity={0.04}>
+								<Model scale={0.01} />
+							</Stage>
+						</PresentationControls>
+					</Canvas>
 				</div>
 
 				<p className="text-lg text-primary mt-6">
